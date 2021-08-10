@@ -10,8 +10,6 @@ module_name, package_name, ClassName, method_name, ExceptionName, function_name,
 GLOBAL_CONSTANT_NAME, global_var_name, instance_var_name, function_parameter_name, local_var_name.
 """
 
-
-
 class Echo(basic.LineReceiver):
     from os import linesep as delimiter
     delimiter = b'\n'
@@ -19,7 +17,6 @@ class Echo(basic.LineReceiver):
     def __init__(self,CommandToWrite):
         self.functionToFire = CommandToWrite
         self.state = Defination.StateClient.IDLE
-
 
     def connectionMade(self):
         self.transport.write(b'>>> ')
@@ -41,6 +38,7 @@ class Greeter(Protocol):
 
     def connectionMade(self):
         self.transport.write('Connection Ma+de with Client olghhgvh'.encode())
+        self.State = Defination.StateClient.LOGGING
         self.sendMessage("hello")
 
     def sendMessage(self, msg):
@@ -50,7 +48,6 @@ class Greeter(Protocol):
 
     def dataReceived(self, data: bytes):
         print(data)
-
 
     def get_Greeter_Deferred(self):
         self.deferred = Deferred()

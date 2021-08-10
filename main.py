@@ -5,21 +5,38 @@ import Defination
 
 class QOTD(Protocol):
 
+    client_counter = 0
+
     def __init__(self):
-        self.ListClients= []
+        self.ListClients = []
 
     def connectionMade(self):
         strByte = bytes('hello from server'.encode())
         self.transport.write(strByte)
-        self.ListClients.append(self)
+        # Dictionary of client
+        client = {
+            "client": self,
+            "connected_To": self,
+            "State": Defination.StateClient.LOGGING
+        }
+        # Dictionary of client added to the list
+        self.ListClients.append(client)
         print("connection made with client")
 
     def dataReceived(self, data: bytes):
         print(data)
+
     def sendLine(self,mess):
         self.transport.write(mess)
 
     def connectionLost(self, reason):
+        #client = list(filter(lambda client: client['client'] == self, self.ListClients))
+        # Delete the client dictionary from list
+        for i in range(len(self.ListClients)):
+            if self.ListClients[i]['client'] == self:
+                del self.ListClients[i]
+                break
+         #self.ListClients.remove(list(client))
         print(reason)
 
 
