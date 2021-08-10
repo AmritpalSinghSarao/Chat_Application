@@ -4,6 +4,12 @@ from twisted.internet.endpoints import TCP4ClientEndpoint, connectProtocol
 from twisted.internet import stdio
 from twisted.protocols import basic
 from twisted.internet.defer import Deferred
+import Defination
+"""
+module_name, package_name, ClassName, method_name, ExceptionName, function_name,
+GLOBAL_CONSTANT_NAME, global_var_name, instance_var_name, function_parameter_name, local_var_name.
+"""
+
 
 
 class Echo(basic.LineReceiver):
@@ -11,7 +17,9 @@ class Echo(basic.LineReceiver):
     delimiter = b'\n'
 
     def __init__(self,CommandToWrite):
-        self.functionToFire=CommandToWrite
+        self.functionToFire = CommandToWrite
+        self.state = Defination.StateClient.IDLE
+
 
     def connectionMade(self):
         self.transport.write(b'>>> ')
